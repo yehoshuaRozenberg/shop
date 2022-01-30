@@ -16,13 +16,13 @@ public class CustomerService {
         Product product;
         try {
             product = productRepo.findById(productID);
-            if (amount<= 0){
+            if (amount <= 0) {
                 throw new IllegalRequestException("wrong details. you can purchase only a Positive number");
             }
             if (product.getAmount() <= 0) {
                 throw new IllegalRequestException("amount is zero, can't complete purchase");
             }
-            if (product.getAmount()-amount<0){
+            if (product.getAmount() - amount < 0) {
                 throw new IllegalRequestException("amount is only " + product.getAmount() + "can't complete purchase because can't buy more from this");
             }
         } catch (NullPointerException err) {

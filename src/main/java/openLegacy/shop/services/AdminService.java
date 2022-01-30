@@ -8,6 +8,8 @@ import openLegacy.shop.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminService {
     @Autowired
@@ -30,10 +32,12 @@ public class AdminService {
         }
         System.out.println("product successfully updated!");
     }
+
     public void addNewProduct(Product product) throws IllegalRequestException, AlreadyExistsException {
         if (productRepo.existsById(product.getId())) {
             throw new AlreadyExistsException("product id already exists");
-        }if (product.getAmount() <= 0) {
+        }
+        if (product.getAmount() <= 0) {
             throw new IllegalRequestException("wrong details. amount can only be a Positive number ");
         }
         if (product.getPrice() <= 0) {
@@ -44,5 +48,9 @@ public class AdminService {
         }
         productRepo.save(product);
         System.out.println("product successfully added");
+    }
+
+    public List<Product> getAllProduct() {
+        return productRepo.findAll();
     }
 }

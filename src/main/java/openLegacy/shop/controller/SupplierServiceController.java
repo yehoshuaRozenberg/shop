@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("supplier")  //http://localhost:8080/
+@RequestMapping("supplier")
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SupplierServiceController {
@@ -22,11 +22,11 @@ public class SupplierServiceController {
     public ResponseEntity<?> addProduct(@RequestBody int productId, int amount) throws IllegalRequestException, NotFoundException {
         try {
             supplierService.addProduct(productId, amount);
-        }catch (NotFoundException err){
+        } catch (NotFoundException err) {
             throw new NotFoundException(err.getMessage());
-        } catch (IllegalRequestException error ) {
-        throw new IllegalRequestException(error.getMessage());
-    }
+        } catch (IllegalRequestException error) {
+            throw new IllegalRequestException(error.getMessage());
+        }
         System.out.println(productRepo.findById(1));
         return ResponseEntity.accepted()
                 .body("successfully Adding goods");

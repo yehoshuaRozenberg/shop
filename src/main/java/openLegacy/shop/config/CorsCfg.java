@@ -12,28 +12,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class CorsCfg {
     @Bean
-    public CorsFilter corsFilter(){
-        //create new url configuration for browsers
+    public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        //create new cors configuration....
         CorsConfiguration config = new CorsConfiguration();
-        //allow to get credentials in cors
         config.setAllowCredentials(false);
-        //allow to get from any ip/domain
         config.addAllowedOrigin("localhost:3000");
-        //allow to get any header
         config.addAllowedHeader("*");
         config.addExposedHeader("*");
         config.addAllowedOrigin("*");
-        //allow to get methods
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
-        //allow to get any route -> localhost:8080/api/lecturer -> /api/lecture is route
-        source.registerCorsConfiguration("/**",config);
-        //return new configuration
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 

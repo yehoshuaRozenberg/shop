@@ -7,11 +7,12 @@ import openLegacy.shop.beans.Product;
 import openLegacy.shop.repositories.ProductRepo;
 import openLegacy.shop.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("admin")  //http://localhost:8080/
+@RequestMapping("admin")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AdminServiceController {
     @Autowired
@@ -37,7 +38,7 @@ public class AdminServiceController {
     public ResponseEntity<?> addNewProduct(@RequestBody Product product) throws AlreadyExistsException, IllegalRequestException {
         try {
             adminService.addNewProduct(product);
-        }catch (AlreadyExistsException err) {
+        } catch (AlreadyExistsException err) {
             throw new AlreadyExistsException(err.getMessage());
         } catch (IllegalRequestException err) {
             throw new IllegalRequestException(err.getMessage());
@@ -45,5 +46,10 @@ public class AdminServiceController {
         System.out.println(product.toString());
         return ResponseEntity.accepted()
                 .body("product successfully added");
+    }
+
+    @PostMapping("getAll")
+    public ResponseEntity<?> getAllProduct() {
+        return new ResponseEntity<>(adminService.getAllProduct(), HttpStatus.ACCEPTED);
     }
 }

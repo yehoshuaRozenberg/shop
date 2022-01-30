@@ -16,11 +16,11 @@ public class SupplierService {
         Product product;
         try {
             product = productRepo.findById(productId);
-            if (amount<= 0){
+            if (amount <= 0) {
                 throw new IllegalRequestException("wrong details. you can add only a Positive number");
             }
-            if (2147483647-amount<product.getAmount()){
-                throw new IllegalRequestException("can't add so much");
+            if (2147483647 - amount < product.getAmount()) {
+                throw new IllegalRequestException("can't hold such a large inventory");
             }
             product.setAmount(product.getAmount() + amount);
         } catch (NullPointerException err) {

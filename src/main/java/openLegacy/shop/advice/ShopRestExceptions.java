@@ -16,13 +16,15 @@ public class ShopRestExceptions {
     @ExceptionHandler(value = {NotFoundException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleNotFoundException(Exception err) {
-        return new ErrorDetail("Not Found error" , err.getMessage());
+        return new ErrorDetail("Not Found error", err.getMessage());
     }
+
     @ExceptionHandler(value = {IllegalRequestException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleIllegalRequestException(Exception err) {
         return new ErrorDetail("Illegal Request error", err.getMessage());
     }
+
     @ExceptionHandler(value = {AlreadyExistsException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleAlreadyExistsException(Exception err) {

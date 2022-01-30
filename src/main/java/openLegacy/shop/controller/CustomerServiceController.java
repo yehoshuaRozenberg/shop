@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("customer")  //http://localhost:8080/
+@RequestMapping("customer")
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerServiceController {
@@ -17,16 +17,17 @@ public class CustomerServiceController {
     private CustomerService customerService;
     @Autowired
     private ProductRepo productRepo;
+
     @PostMapping("withDraw")
-    public ResponseEntity<?> withDrawProduct(@RequestBody int productId, int amount) throws IllegalRequestException, NotFoundException{
+    public ResponseEntity<?> withDrawProduct(@RequestBody int productId, int amount) throws IllegalRequestException, NotFoundException {
         try {
             customerService.withDrawProduct(productId, amount);
             System.out.println(productRepo.findById(productId));
             return ResponseEntity.accepted()
                     .body("successfully purchased");
-        }catch (NotFoundException error){
+        } catch (NotFoundException error) {
             throw new NotFoundException(error.getMessage());
-        } catch (IllegalRequestException err ) {
+        } catch (IllegalRequestException err) {
             throw new IllegalRequestException(err.getMessage());
         }
     }
