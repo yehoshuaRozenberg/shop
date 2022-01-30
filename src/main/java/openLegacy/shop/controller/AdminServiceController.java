@@ -1,5 +1,6 @@
 package openLegacy.shop.controller;
 
+import openLegacy.shop.Exceptions.AlreadyExistsException;
 import openLegacy.shop.Exceptions.IllegalRequestException;
 import openLegacy.shop.Exceptions.NotFoundException;
 import openLegacy.shop.beans.Product;
@@ -30,5 +31,19 @@ public class AdminServiceController {
         System.out.println(productRepo.findById(product.getId()));
         return ResponseEntity.accepted()
                 .body("product successfully updated");
+    }
+
+    @PostMapping("addNew")
+    public ResponseEntity<?> addNewProduct(@RequestBody Product product) throws AlreadyExistsException, IllegalRequestException {
+        try {
+            adminService.addNewProduct(product);
+        }catch (AlreadyExistsException err) {
+            throw new AlreadyExistsException(err.getMessage());
+        } catch (IllegalRequestException err) {
+            throw new IllegalRequestException(err.getMessage());
+        }
+        System.out.println(product.toString());
+        return ResponseEntity.accepted()
+                .body("product successfully added");
     }
 }

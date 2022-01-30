@@ -29,9 +29,12 @@ public class Tester implements CommandLineRunner {
         Product product1 = Product.builder()
                 .id(1)
                 .amount(20)
-                .image("milk")
+                .image("Minced Turkey.jpg")
                 .price(30)
-                .name("milk")
+                .name("Minced Turkey")
+                .Department("Poultry")
+                .company("Zoglobek")
+                .description("1 kg")
                 .build();
         productRepo.save(product1);
         System.out.println(productRepo.findById(1).toString());
@@ -46,18 +49,15 @@ public class Tester implements CommandLineRunner {
         Product product2 = Product.builder()
                 .id(2)
                 .amount(50)
-                .image("bamba")
+                .image("bamba.jpg")
                 .price(100)
-                .name("jpg")
+                .name("bamba")
+                .company("osem")
+                .Department("snacks")
+                .description("80 grams")
                 .build();
         System.out.println(product2);
         productRepo.save(product2);
-
-        //adminService.updateProduct(product2);
-        /*Product product2 = productRepo.findById(2);
-        System.out.println(product2);
-        adminService.updateProduct(product2);*/
-
 
     }
 }

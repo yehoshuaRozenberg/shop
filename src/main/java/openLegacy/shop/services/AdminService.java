@@ -1,5 +1,6 @@
 package openLegacy.shop.services;
 
+import openLegacy.shop.Exceptions.AlreadyExistsException;
 import openLegacy.shop.Exceptions.IllegalRequestException;
 import openLegacy.shop.Exceptions.NotFoundException;
 import openLegacy.shop.beans.Product;
@@ -28,5 +29,20 @@ public class AdminService {
             throw new NotFoundException("wrong details. product not found");
         }
         System.out.println("product successfully updated!");
+    }
+    public void addNewProduct(Product product) throws IllegalRequestException, AlreadyExistsException {
+        if (productRepo.existsById(product.getId())) {
+            throw new AlreadyExistsException("product id already exists");
+        }if (product.getAmount() <= 0) {
+            throw new IllegalRequestException("wrong details. amount can only be a Positive number ");
+        }
+        if (product.getPrice() <= 0) {
+            throw new IllegalRequestException("wrong details. price can only be a Positive number ");
+        }
+        if (product.getId() != productRepo.count() + 1) {
+            throw new IllegalRequestException("wrong details. id doesn't follow the number in front of him in the list. you can use id: " + (productRepo.count() + 1));
+        }
+        productRepo.save(product);
+        System.out.println("product successfully added");
     }
 }
